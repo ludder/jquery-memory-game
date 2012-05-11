@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="nl" manifest="appcache.manifest">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='width=device-width'/>
+	<title>Mobile JavaScript Flickr Memory Game</title>
+	<style>
+		body {
+			background-color: #fff;
+			color: #000;
+		}
+		h1 {font-size: 110%}
+	</style>
+	<link rel="stylesheet" type="text/css" href="memory.css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="memory.js"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			$.ajax({
+				url: "http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=?",
+				type: "GET",
+				dataType: "json",
+				error: function(err) {
+					// fallback for connection errors, show the fout default pictures
+					var img = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg'];
+					for (var i = 0; i < img.length; i++) {
+						addCard(img[i]);
+					};
+					startCardGame();
+					$("#loading").text("error retrieving flickr pictures, pictures from cache loaded");
+				},
+				success: function(data) {
+					var items = data.items;
+					var i, length, item;
+					length = (items.length > 5) ? 5 : items.length;
+					for (i=0; i<length; i++) {
+					  item = items[i];
+						addCard(item.media.m);
+					}
+					startCardGame();
+					$("#loading").remove();
+				},
+				timeout: 10000
+			});
+
+			function addCard(img) {
+				var objImg = '<img src="' + img + '" alt="">';
+				var newcard = '<li class="card">' + objImg + '</li>';
+				$("#cards").append(newcard).append(newcard);
+			}
+
+			function startCardGame() {
+				$('#cards').memoryGame();
+			}
+
+		});
+	</script>
+</head>
+<body>
+	<h1>Mobile JavaScript Flickr Memory Game</h1>
+	<noscript>This super cool app unfortenately is totally dependent on JavaScript.</noscript>
+	<div id="loading">loading...</div>
+	<ul id="cards"></ul>
+<div id="notification"><p><span></span> times.<br>Well done!</p></div>
+</body>
+</html>

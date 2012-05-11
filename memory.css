@@ -1,0 +1,13 @@
+.card { border: 10px solid #f96; border-radius: 10px; width: 100px; height: 100px; float: left; margin: 10px;	background-color: #fec; overflow: hidden; position: relative; cursor: pointer;}
+	@media screen and (max-device-width: 480px) {
+	  .card { width: 60px; height: 60px; }
+	}
+	.card.empty {border-color: #fff; background: #fff; cursor: default;}
+		.card.empty img {display: none;}
+	.card.selected {border-color: #69f; background-color: #fff;}
+		.card.selected img {display: block;}
+.card img { display: none; position: absolute}
+	.card img.height { width: 100%; top: -10px; left: 0 }
+	.card img.width { height: 100%; left: -10px; top: 0 }
+#notification {display:none;position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: #ff0;}
+	#notification p { text-align: center; margin: auto 0; font-size: 5em; font-weight:700; line-height: 2;}
