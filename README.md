@@ -1,6 +1,8 @@
 jquery-memory-game
 ==================
 
+Version: 0.1
+
 Mobile JavaScript Memory Game jQuery plugin
 
 Alpha version, tested on FF12+Chromium/Ubuntu, Firefox/Android 3.2.3 (HTC Sensation)
